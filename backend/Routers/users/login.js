@@ -1,18 +1,32 @@
 import { check } from "../../Functions/bcryptr.js";
-import { Router } from "express";
+import { Router, query } from "express";
 import Joi from "joi";
+// import client from "../../Functions/database.js";
 
 const router = Router();
 
-router.post("/", function(req, res){
+router.post("/", async function(req, res){
 const Schema = Joi.object(
     {
-        login: Joi.string().required().max(50).min(1),
-        password:Joi.string().required().max(250).min(1)
+        email: Joi.string().required().max(50).min(1).trim(),
+        password:Joi.string().required().max(250).min(1).trim()
     }
 );
-let check = Schema.validate(req.body);
-if (check.error) return res.status(401).send(check.error.message);
+let checkSchema = Schema.validate(req.body);
+if (checkSchema.error) return res.status(401).send(checkSchema.error.message);
+try {
+    const {email, password} = req.body;
+    
+    let data = await global.client.query(
+        `Select id, password from users where email = '${email}'`
+    );
+
+    console.log(data.rows);
+    res.status(200).send(data.rows)
+    
+} catch (error) {
+console.log("User loginda xatolik mavjud", error);    
+}
 
 });
 
