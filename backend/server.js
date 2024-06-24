@@ -3,7 +3,7 @@ import http from "http";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import client from "./Functions/database.js";
+import pool from "./Functions/database.js";
 
 // Routers
 import user from "./Routers/users/index.js";
@@ -14,7 +14,7 @@ const app = express();
 
 (async()=>{
 try {
-    await client.connect();
+    await pool.connect();
 
 } catch (error) {
 console.log("Serverda ulanishda xatolik mavjud ", error)    

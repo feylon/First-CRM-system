@@ -18,10 +18,10 @@ router.post("/", async function(req, res){
         tuman : Joi.string().min(3).max(15).required().trim(),
         password : joiPassword
         .string()
-        .minOfSpecialCharacters(2)
-        .minOfLowercase(2)
-        .minOfUppercase(2)
-        .minOfNumeric(2)
+        .minOfSpecialCharacters(1)
+        .minOfLowercase(1)
+        .minOfUppercase(1)
+        .minOfNumeric(1)
         .noWhiteSpaces()
         .onlyLatinCharacters()
         .doesNotInclude(['password'])
@@ -37,7 +37,7 @@ router.post("/", async function(req, res){
         const {email, password, firstname, lastname, phone, viloyat, tuman} = req.body;
 
         
-        await global.client.query(`
+        await global.pool.query(`
 
             insert into users (email, password, firstname, lastname, phone, viloyat, tuman) values
         ('${email}', '${password}', '${firstname}', '${lastname}', '${phone}', '${viloyat}', '${tuman}');

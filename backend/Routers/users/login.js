@@ -17,12 +17,13 @@ if (checkSchema.error) return res.status(401).send(checkSchema.error.message);
 try {
     const {email, password} = req.body;
     
-    let data = await global.client.query(
+    let data = await global.pool.query(
         `Select id, password from users where email = '${email}'`
     );
 
+    console.log(data.rows)
 
-    if(data.rows.length == 0) return res.send("Parol yoki login xato").status(401);
+    if(data.rows.length == 0) return res.status(401).send("Parol yoki login xato");
     const check_login = await check(password, data.rows[0].password);
     if(check_login)
     return res.status(200).send({token:sign(data.rows[0].id)})

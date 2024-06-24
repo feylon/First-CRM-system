@@ -1,9 +1,10 @@
 import pg from "pg";
-const {Client} = pg;
+const {Pool} = pg;
+
 import dotenv from "dotenv";
 dotenv.config();
 
- const client = new Client(
+ const pool = new Pool(
     {
         user:process.env.user,
         password:process.env.password,
@@ -12,5 +13,5 @@ dotenv.config();
         port:process.env.port1
     }
  );
-global.client = client;
- export default client;
+global.pool = pool;
+ export default pool;

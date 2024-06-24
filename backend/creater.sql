@@ -11,8 +11,11 @@ create table users (
         state boolean default true,
         active boolean default true,
         brithday date default '2000-01-01',
-        profil_url varchar(500)
-        );
+        profil_url varchar(500),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        last_seen TIMESTAMP,
+        delete_at TIMESTAMP
+)
 
 -- admin shabloni 
 create table admin(
@@ -28,9 +31,12 @@ tuman varchar(200),
 state boolean default true,
 active boolean default true,
 brithday date default '2000-01-01',
-profil_url varchar(500)
+profil_url varchar(500),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+last_seen TIMESTAMP,
+delete_at TIMESTAMP
 );
 -- Admin uchun default qiymat Parol : JAmshid14!!
 insert into admin(email, login, password) values
-('jamshid14092002@gmail.com','@jamshid14092002','$2b$10$AYG38EVVv5Eqf6Iz1112q.peSUs7ZbBts3qn65MSEvwDtT8TEDiGK');
+('jamshid14092002@gmail.com','@jamshid14092002','$2b$10$qszd/we2sPerBlHoeUKageRfkVnM9T5LUndqxhgli3NmJdTHRhbOG');
 Select * from admin;
