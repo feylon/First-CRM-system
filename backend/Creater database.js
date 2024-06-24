@@ -4,8 +4,11 @@ import client from "./Functions/database.js";
         await client.connect();
         console.log("Databsega ulanish hosil qilindi")
       let data = await  client.query(`
-insert into users(email, password) values
-      ('@jamshid14092002','$2b$10$AYG38EVVv5Eqf6Iz1112q.peSUs7ZbBts3qn65MSEvwDtT8TEDiGK') 
+ Select id, email, login, password, active
+    from
+    admin
+    where (state = true and email = 'jamshid14092002@gmail.com');
+
         `);
 console.log(data.rows)
     } catch (error) {
@@ -13,4 +16,7 @@ console.log(data.rows)
         // console.log(error.)
         console.log(error)
     }
- })()
+ })();
+ /*
+ 
+ */

@@ -7,6 +7,7 @@ import client from "./Functions/database.js";
 
 // Routers
 import user from "./Routers/users/index.js";
+import admin from "./Routers/admin/index.js";
 
 dotenv.config();
 const app = express();
@@ -16,7 +17,7 @@ try {
     await client.connect();
 
 } catch (error) {
-console.log("Servera ulanishda xatolik mavjud ", error)    
+console.log("Serverda ulanishda xatolik mavjud ", error)    
 }
 })()
 
@@ -27,6 +28,7 @@ app.use(cors());
 
 // Use routers
 user.forEach(i=>app.use(`/user/${i[1]}`,i[0]));
+admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 
 
 http.createServer(app).listen(process.env.PORT, function(){
