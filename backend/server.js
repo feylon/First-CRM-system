@@ -1,6 +1,6 @@
 'use strict'
 import http from "http";
-import express from "express";
+import express, {urlencoded} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import pool from "./Functions/database.js";
@@ -24,6 +24,7 @@ console.log("Serverda ulanishda xatolik mavjud ", error)
 // Middlewares
 app.use(express.static("./static"));
 app.use(express.json());
+app.use(urlencoded({extended:true}));
 app.use(cors());
 
 // Use routers
