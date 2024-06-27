@@ -20,8 +20,9 @@ const pool = new Pool(
         // await pool.();
         console.log("Databsega ulanish hosil qilindi")
       let data = await  pool.query(`
-        drop table admin
-        
+        create table categories(
+        id bigserial primary key unique,
+        name varchar(50) not null);
         `);
 console.log(data.rows)
     } catch (error) {
