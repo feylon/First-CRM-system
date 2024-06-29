@@ -40,3 +40,8 @@ delete_at TIMESTAMP
 insert into admin(email, login, password) values
 ('jamshid14092002@gmail.com','@jamshid14092002','$2b$10$qszd/we2sPerBlHoeUKageRfkVnM9T5LUndqxhgli3NmJdTHRhbOG');
 Select * from admin;
+
+-- categories shabloni
+        create table categories(
+        id bigserial primary key unique,
+        name varchar(50) not null unique );

@@ -20,7 +20,10 @@ router.post("/", async function(req, res){
         res.status(201).send(backend.rows[0])
         
     } catch (error) {
-        console.log(error)
+        if (error.code == '23505') 
+            return res.status(400).send(error.detail)
+        console.log(error);
+
     }
 });
 

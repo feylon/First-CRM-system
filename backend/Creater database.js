@@ -20,9 +20,11 @@ const pool = new Pool(
         // await pool.();
         console.log("Databsega ulanish hosil qilindi")
       let data = await  pool.query(`
-        create table categories(
-        id bigserial primary key unique,
-        name varchar(50) not null);
+create table product_types(
+id bigserial primary key unique,
+category_id bigint references (categories.id),
+name varchar(50) not null unique
+);
         `);
 console.log(data.rows)
     } catch (error) {
