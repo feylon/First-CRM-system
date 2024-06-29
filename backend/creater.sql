@@ -45,3 +45,12 @@ Select * from admin;
         create table categories(
         id bigserial primary key unique,
         name varchar(50) not null unique );
+
+        ALTER TABLE categories
+ADD COLUMN state BOOLEAN DEFAULT true;
+
+        alter table categories 
+add column 
+
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+

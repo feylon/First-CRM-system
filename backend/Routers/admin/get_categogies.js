@@ -20,6 +20,7 @@ try {
     `
     
 SELECT * FROM categories
+where state = true
 LIMIT ${size} OFFSET (${page} - 1)  *  ${size};	
     `
         )
