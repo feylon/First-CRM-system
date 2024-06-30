@@ -53,4 +53,12 @@ ADD COLUMN state BOOLEAN DEFAULT true;
 add column 
 
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+--  product_types shabloni
+create table product_types
+(
+id bigserial primary key unique,
+name varchar(500) not null unique,
+categories_id integer,
+foreign key (categories_id) references categories (id)
+);
 
