@@ -70,3 +70,24 @@ add column
 
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
+-- Product uchun
+
+create table product (
+id bigserial primary key unique,
+product_type_id integer,
+foreign key (product_type_id) references product_types(id),
+category_id integer,
+foreign key (category_id) references  categories (id),
+state boolean default true,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+name varchar(500) unique not null,
+price integer not null,
+discount_price integer ,
+discount integer,
+quantity integer,
+views integer DEFAULT 0,
+likes integer default 0,
+sort_order integer default 1,
+status integer default 1,
+description varchar(500)
+);

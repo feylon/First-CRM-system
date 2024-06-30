@@ -1,4 +1,3 @@
-import Joi from "joi";
 import { Router } from "express";
 
 const router = Router();
