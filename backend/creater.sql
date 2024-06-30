@@ -62,3 +62,11 @@ categories_id integer,
 foreign key (categories_id) references categories (id)
 );
 
+ALTER TABLE product_types
+ADD COLUMN state BOOLEAN DEFAULT true;
+
+        alter table product_types 
+add column 
+
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
