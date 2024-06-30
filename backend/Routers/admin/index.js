@@ -6,6 +6,8 @@ import delete_caterogies from "./cors caterogies/delete_categories.js";
 
 import add_product_types from "./cors product_types/add_product_types.js"
 import get_product_types from "./cors product_types/get_product_types.js"
+import edit_product_types from "./cors product_types/edit_product_types.js"
+
 export default 
 [
 [login,"login"],
@@ -15,5 +17,6 @@ export default
 [delete_caterogies,"delete_caterogies"],
 
 [add_product_types, "add_product_types"],
-[get_product_types,"get_product_types"]
+[get_product_types,"get_product_types"],
+[edit_product_types,"edit_product_types"]
 ];
