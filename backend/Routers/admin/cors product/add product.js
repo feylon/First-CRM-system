@@ -18,11 +18,35 @@ const Schema = Joi.object
 );
 const checkValidate = Schema.validate(req.body);
 if(checkValidate.error)
-    return req.statusCode(400).send(checkValidate.error.message);
+    return res.status(400).send(checkValidate.error.message);
 
-res.statusCode(400).send(req.body);
-return;
+const {
+    product_type_id,
+    category_id,
+    state,
+    name,
+    price,
+    discount_price,
+    discount,
+    quantity,
+} = req.body;
 
+try {
+    const data = await global.pool.query(
+`
+intsert into products (product_type_id,
+category_id,
+state,
+name,
+price,
+discount_price,
+discount,
+quantity,)
+`        
+    )
+} catch (error) {
+    
+}
 
 });
 
