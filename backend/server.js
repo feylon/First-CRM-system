@@ -4,6 +4,7 @@ import express, {urlencoded} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import pool from "./Functions/database.js";
+import bot from "./Telegram_Bot/index.js";
 
 // Routers
 import user from "./Routers/users/index.js";
@@ -33,6 +34,6 @@ admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 
 
 http.createServer(app).listen(process.env.PORT, function(){
-    console.log("PORT : ", process.env.PORT)
+    console.log("PORT : ", process.env.PORT);
 })
 

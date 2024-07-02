@@ -3,6 +3,7 @@ import { Router } from "express";
 
 const router = Router();
 router.post("/", async function (req, res){
+    console.log(req.body)
 const Schema = Joi.object
 (
 {
