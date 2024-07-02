@@ -11,6 +11,7 @@ import delete_product_types from "./cors product_types/delete_product_types.js";
 
 
 import add_product from "./cors product/add product.js";
+import get_product from "./cors product/get_product.js"
 export default 
 [
 [login,"login"],
@@ -24,5 +25,6 @@ export default
 [edit_product_types,"edit_product_types"],
 [delete_product_types, "delete_product_types"],
 
-[add_product,"add_product"]
+[add_product,"add_product"],
+[get_product,"get_product"]
 ];

@@ -3,7 +3,6 @@ import { Router } from "express";
 
 const router = Router();
 router.post("/", async function (req, res){
-    console.log(req.body)
 const Schema = Joi.object
 (
 {
@@ -35,18 +34,36 @@ const {
 try {
     const data = await global.pool.query(
 `
-intsert into products (product_type_id,
+insert into product (
+product_type_id,
 category_id,
 state,
 name,
 price,
 discount_price,
 discount,
-quantity,)
-`        
-    )
+quantity) values
+($1, $2, $3, $4, $5, $6, $7, $8)
+`,
+[
+    product_type_id,
+    category_id,
+    state,
+    name,
+    price,
+    discount_price,
+    discount,
+    quantity
+]        
+    );
+return res.status(201).send("Created :)")
 } catch (error) {
+    if(error.code == "23505") 
+        return res.status(400).send(error.detail);
+    if(error.code == "23503") 
+        return res.status(400).send(error.detail);
     
+    console.log(error)
 }
 
 });
