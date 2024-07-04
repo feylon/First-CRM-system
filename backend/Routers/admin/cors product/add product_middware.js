@@ -1,31 +1,11 @@
 import Joi from "joi";
+import req_checker from "./add_product.js"
 import { Router } from "express";
 import file_Upload from "../../../Functions/upload.js"
 
 const router = Router();
-router.post("/",[file_Upload.single("picture")], async function (req, res){
-    // return
-    const Schema = Joi.object
-(
-{
-    product_type_id : Joi.number().required().min(0),
-    category_id : Joi.number().required(),
-    state : Joi.boolean(),
-    name : Joi.string().trim().required(),
-    price : Joi.number().required(),
-    discount_price : Joi.number().required(),
-    discount : Joi.number().required(),
-    quantity : Joi.number().required()       
-}
-);
-;
-
-console.log(req.body)
-
-const checkValidate = Schema.validate(req.body);
-if(checkValidate.error)
-    return res.status(400).send(checkValidate.error.message);
-
+router.post("/",[req_checker,], async function (req, res){
+    
 const {
     product_type_id,
     category_id,
@@ -35,6 +15,7 @@ const {
     discount_price,
     discount,
     quantity,
+    filename
 } = req.body;
 
 try {
@@ -48,8 +29,9 @@ name,
 price,
 discount_price,
 discount,
-quantity) values
-($1, $2, $3, $4, $5, $6, $7, $8)
+quantity,
+urlpic) values
+($1, $2, $3, $4, $5, $6, $7, $8, $9)
 `,
 [
     product_type_id,
@@ -59,7 +41,8 @@ quantity) values
     price,
     discount_price,
     discount,
-    quantity
+    quantity,
+    filename
 ]        
     );
 return res.status(201).send("Created :)")

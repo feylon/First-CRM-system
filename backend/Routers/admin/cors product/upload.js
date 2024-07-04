@@ -5,13 +5,12 @@ let stroge = multer.diskStorage({
     destination:(req,file, cb)=>{
         cb(null,`${process.cwd()}/static/product_img`);
     },
-    filename:async (req, file, cb)=>{
+    filename:(req, file, cb)=>{
         let ext = file.originalname.split('.')[file.originalname.split('.').length - 1];
         let name = md5(Date.now())
         cb(null,`${name}.` + ext);
         req.body.filename ={url:`${name}.` + ext, name:file.originalname};;
-        console.log("Bajarildi");
-
+        console.log("Bajarildi")
     }
 });
 

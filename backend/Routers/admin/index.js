@@ -10,7 +10,7 @@ import edit_product_types from "./cors product_types/edit_product_types.js";
 import delete_product_types from "./cors product_types/delete_product_types.js";
 
 
-import add_product from "./cors product/add product.js";
+import add_product from "./cors product/add product_middware.js";
 import get_product from "./cors product/get_product.js"
 export default 
 [
