@@ -1,9 +1,11 @@
 import Joi from "joi";
 import { Router } from "express";
+import file_Upload from "../../../Functions/upload.js"
 
 const router = Router();
-router.post("/", async function (req, res){
-const Schema = Joi.object
+router.post("/",[file_Upload.single("picture")], async function (req, res){
+    // return
+    const Schema = Joi.object
 (
 {
     product_type_id : Joi.number().required().min(0),
@@ -16,6 +18,10 @@ const Schema = Joi.object
     quantity : Joi.number().required()       
 }
 );
+;
+
+console.log(req.body)
+
 const checkValidate = Schema.validate(req.body);
 if(checkValidate.error)
     return res.status(400).send(checkValidate.error.message);
