@@ -18,15 +18,14 @@ try {
     const {page, size} = req.query;
         const data = await global.pool.query(
     `
-    select  
-email,
+        select  
+        email,
         firstname,
         lastname,
         brithday,
         phone,
         viloyat,
         tuman,
-        password,
         p.name as role_name
         
 from worker

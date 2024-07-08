@@ -11,8 +11,17 @@ import delete_product_types from "./cors product_types/delete_product_types.js";
 
 
 import add_product from "./cors product/add product_middware.js";
-import get_product from "./cors product/get_product.js"
+import get_product from "./cors product/get_product.js";
+
+import add_worker from "./cors worker/add worker.js";
+import add_role from "./cors worker/add_role.js";
+import get_role from "./cors worker/get_roles.js"
+import get_worker from "./cors worker/get_worker.js";
+import edit_roles from "./cors worker/edit_roles.js";
+
+
 export default 
+
 [
 [login,"login"],
 [add_caterogies,"add_caterogies"],
@@ -26,5 +35,11 @@ export default
 [delete_product_types, "delete_product_types"],
 
 [add_product,"add_product"],
-[get_product,"get_product"]
+[get_product,"get_product"],
+
+[add_worker, "add_worker"],
+[add_role, "add_role"],
+[get_worker, "get_worker"],
+[get_role,"get_role"],
+[edit_roles, "edit_roles"]
 ];

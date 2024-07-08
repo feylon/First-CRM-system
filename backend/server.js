@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import pool from "./Functions/database.js";
 import bot from "./Telegram_Bot/index.js";
+import ngrok from "@ngrok/ngrok";
 
 // Routers
 import user from "./Routers/users/index.js";
@@ -27,13 +28,25 @@ app.use(express.static("./static"));
 app.use(express.json());
 app.use(urlencoded({extended:true}));
 app.use(cors());
+app.use((req, res, next)=>{
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log('Client IP:', clientIp);
+next();
+})
 
 // Use routers
 user.forEach(i=>app.use(`/user/${i[1]}`,i[0]));
 admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 
 
-http.createServer(app).listen(process.env.PORT, function(){
+http.createServer(app).listen(
+    // process.env.PORT
+    8080
+    , function(){
     console.log("PORT : ", process.env.PORT);
 })
 
+
+
+ngrok.connect({ addr: 8080, authtoken_from_env: true })
+	.then(listener => console.log(`Ingress established at: ${listener.url()}`));
