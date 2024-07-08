@@ -6,11 +6,13 @@ import cors from "cors";
 import pool from "./Functions/database.js";
 import bot from "./Telegram_Bot/index.js";
 import ngrok from "@ngrok/ngrok";
-
+import region from "./Functions/region.js";
 // Routers
 import user from "./Routers/users/index.js";
 import admin from "./Routers/admin/index.js";
 
+// Regionlarni o'rnatish
+region();
 dotenv.config();
 const app = express();
 
@@ -40,13 +42,13 @@ admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 
 
 http.createServer(app).listen(
-    // process.env.PORT
-    8080
+    process.env.PORT
+    // 8080
     , function(){
     console.log("PORT : ", process.env.PORT);
 })
 
 
 
-ngrok.connect({ addr: 8080, authtoken_from_env: true })
-	.then(listener => console.log(`Ingress established at: ${listener.url()}`));
+// ngrok.connect({ addr: 8080, authtoken_from_env: true })
+// 	.then(listener => console.log(`Ingress established at: ${listener.url()}`));

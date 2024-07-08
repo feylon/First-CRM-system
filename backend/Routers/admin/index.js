@@ -18,7 +18,7 @@ import add_role from "./cors worker/add_role.js";
 import get_role from "./cors worker/get_roles.js"
 import get_worker from "./cors worker/get_worker.js";
 import edit_roles from "./cors worker/edit_roles.js";
-
+import edit_worker from "./cors worker/edit_worker.js";
 
 export default 
 
@@ -41,5 +41,6 @@ export default
 [add_role, "add_role"],
 [get_worker, "get_worker"],
 [get_role,"get_role"],
-[edit_roles, "edit_roles"]
+[edit_roles, "edit_roles"],
+[edit_worker, "edit_worker"]
 ];
