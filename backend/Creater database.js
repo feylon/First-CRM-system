@@ -12,21 +12,17 @@ const pool = new Pool(
         password:process.env.password,
         database:process.env.database,
         host:process.env.host,
-        port:process.env.port1
+        port:process.env.port1,
+        ssl:true,
+        // connectionString:"postgresql://feylon:kndwN8k1Pd7XpNrjERmpkDydCQLZv4KS@dpg-cpncvimehbks73856pg0-a.oregon-postgres.render.com/bulut"
     }
 ) ;
 (async()=>{
     try {
         // await pool.();
+        pool.connect();
         console.log("Databsega ulanish hosil qilindi")
-      let data = await  pool.query(`
-create table product_types(
-id bigserial primary key unique,
-category_id bigint references (categories.id),
-name varchar(50) not null unique
-);
-        `);
-console.log(data.rows)
+      
     } catch (error) {
 
         // console.log(error.)

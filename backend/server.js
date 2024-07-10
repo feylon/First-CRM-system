@@ -10,7 +10,7 @@ import region from "./Functions/region.js";
 // Routers
 import user from "./Routers/users/index.js";
 import admin from "./Routers/admin/index.js";
-
+import worker from "./Routers/worker/index.js";
 // Regionlarni o'rnatish
 region();
 dotenv.config();
@@ -31,14 +31,15 @@ app.use(express.json());
 app.use(urlencoded({extended:true}));
 app.use(cors());
 app.use((req, res, next)=>{
-    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log('Client IP:', clientIp);
+    // const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    // console.log('Client IP:', clientIp);
 next();
 })
 
 // Use routers
 user.forEach(i=>app.use(`/user/${i[1]}`,i[0]));
 admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
+worker.forEach(i=>app.use(`/worker/${i[1]}`,i[0]));
 
 
 http.createServer(app).listen(

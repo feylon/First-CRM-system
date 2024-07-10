@@ -7,7 +7,8 @@ router.get("/", async (req, res)=>{
     SELECT * FROM public.role_worker
 ORDER BY id ASC; 
     `);
-    
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log(clientIp);
 return   res.status(200).send(data.rows);
 });
 export default router;

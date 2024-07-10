@@ -11,6 +11,8 @@ router.post("/:id", async (req, res) => {
     viloyat: Joi.string().required(),
     tuman: Joi.string().required(),
     role_id: Joi.number().min(0).required(),
+    state : Joi.boolean().required(),
+    active : Joi.boolean().required()
       });
   let checkValidate = Schema.validate(req.body);
   if (checkValidate.error)
@@ -24,41 +26,64 @@ router.post("/:id", async (req, res) => {
     viloyat,
     tuman,
     role_id,
+    state,
+    active
   } = req.body;
-res.send(req.body)
-  return;
+  
+  let paramsSchema = Joi.object({
+    id : Joi.number().required()
+  });
+
+  if(paramsSchema.validate(req.params).error) return res.status(400).send(paramsSchema.validate(req.params).error.message);
+  const  {id} = req.params;
+
+  console.log(id)
+try {
+  const hasData = await global.pool.query
+("Select id from worker where id = $1", [id]);
+
+if(hasData.rows.length == 0) return  res.status(404).send("Ma'lumot mavjud emas");
+
+} catch (error) {
+console.log(error)  
+}
+
+  
   try {
     await global.pool.query(
       `
-        insert into worker(
-        email,
-        firstname,
-        lastname,
-        brithday,
-        phone,
-        viloyat,
-        tuman,
-        password,
-        role_id
-        )
-        values($1, $2, $3, $4, $5, $6, $7, $8, $9);`,
+        UPDATE worker SET 
+    email = $1,
+    firstname = $2,
+    lastname = $3,
+    brithday = $4,
+    phone = $5,
+    viloyat = $6,
+    tuman = $7,
+    role_id = $8,
+    state = $9,
+    active = $10
+WHERE id = $11;
+;`,
       [
-        email,
-        firstname,
-        lastname,
-        brithday,
-        phone,
-        viloyat,
-        tuman,
-        password,
-        role_id,
+    email,
+    firstname,
+    lastname,
+    brithday,
+    phone,
+    viloyat,
+    tuman,
+    role_id,
+    state,
+    active,
+    id
       ]
     );
     let data = await global.pool.query(
-      "Select email, firstname, lastname, brithday, phone, viloyat, tuman from worker where email = $1",
-      [email]
+      "Select email, firstname, lastname, brithday, phone, viloyat, tuman from worker where id = $1",
+      [id]
     );
-    res.status(201).send(data.rows);
+    res.status(201).send("Edited : )");
   } catch (error) {
     if (error.code == "23505") return res.status(400).send(error.detail);
     if (error.code == "23503")
