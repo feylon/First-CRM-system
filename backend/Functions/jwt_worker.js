@@ -8,8 +8,8 @@ function check(req, res, next){
     try{
         let token = req.header("-x-token")    
         let decoded = jwt.verify(token,"YashirinKOD");
-        console.log(decoded);
-        req.body.jwt_id = decoded;
+        // console.log(decoded);
+        req.body.jwt_id = decoded.id;
         next();
         }
         catch(err){

@@ -20,6 +20,10 @@ import get_worker from "./cors worker/get_worker.js";
 import edit_roles from "./cors worker/edit_roles.js";
 import edit_worker from "./cors worker/edit_worker.js";
 
+
+// Tasks Selection
+
+import createTask from "./tasks/create.js"
 export default 
 
 [
@@ -42,5 +46,6 @@ export default
 [get_worker, "get_worker"],
 [get_role,"get_role"],
 [edit_roles, "edit_roles"],
-[edit_worker, "edit_worker"]
+[edit_worker, "edit_worker"],
+[createTask,"createTask"]
 ];

@@ -6,6 +6,7 @@ import cors from "cors";
 import pool from "./Functions/database.js";
 import bot from "./Telegram_Bot/index.js";
 import ngrok from "@ngrok/ngrok";
+import bodyParser from "body-parser";
 import region from "./Functions/region.js";
 // Routers
 import user from "./Routers/users/index.js";
@@ -30,6 +31,9 @@ app.use(express.static("./static"));
 app.use(express.json());
 app.use(urlencoded({extended:true}));
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use((req, res, next)=>{
     // const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     // console.log('Client IP:', clientIp);

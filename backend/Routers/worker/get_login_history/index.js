@@ -1,9 +1,10 @@
 import { Router } from "express";
 import Joi from "joi";
+import { check } from "../../../Functions/jwt_worker.js";
 
 const router = Router();
 
-router.get("/", async function (req, res){
+router.get("/",[check], async function (req, res){
 
     const Schema = Joi.object(
         {
@@ -18,30 +19,21 @@ try {
     const {page, size} = req.query;
         const data = await global.pool.query(
     `
-    SELECT 
-    product.id AS id,
-    product.product_type_id AS product_type_id,
-    product.category_id,
-    product.name AS product,
-    product.price,
-    product.discount_price,
-    product.discount,
-    product.quantity,
-    product_types.name AS product_types_name,
-    categories.name AS categories_name
-FROM 
-    product
-INNER JOIN 
-    product_types ON product.product_type_id = product_types.id
-INNER JOIN 
-    categories ON product.category_id = categories.id
+    Select p.email, login_history_worker.created_at,
+login_history_worker.IP,  
+login_history_worker.status
+from login_history_worker
+inner join worker p on login_history_worker.id_worker = p.id
+
 WHERE 
-    product.state = true
+    id_worker = $4
+    ORDER BY login_history_worker.created_at DESC 
+
 
 LIMIT $1 OFFSET ($2 - 1)  *  $3;	
 	
     `,
-    [size, page, size]
+    [size, page, size, req.body.jwt_id]
         )
 
 return res.status(200).send(data.rows)
