@@ -34,11 +34,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use((req, res, next)=>{
-    // const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    // console.log('Client IP:', clientIp);
-next();
-})
+
 
 // Use routers
 user.forEach(i=>app.use(`/user/${i[1]}`,i[0]));
