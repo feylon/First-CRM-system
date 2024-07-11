@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        
+    </style>
 </head>
 <body>
-    <form action="http://localhost:4100/admin/createTask" method="post">
-        <input name="salom" type="text">
-        <button type="submit">Yuborish</button>
+    <form enctype="multipart/form-data" action="http://localhost:4100/admin/createTask"  method="post">
+    Name : <input name="name"  type="text"> <br>
+    Description <textarea name="description" id=""></textarea><br>
+    Admin_ID <input type="text" name="admin_id"><br>
+    worker_id <input type="text" name="worker_id"><br>
+    diedline<input type="datetime-local" name="diedline" id="">
+    <label for="active">active</label> <input type="checkbox" value="true" id="active" name="active"> 
+    MaxRate <input type="number" name="MaxRate" id="">
+    Done <input type="checkbox" name="done" value="true">
+
+        <input type="file" name="file" id="">
+        <button type="submit">Yuborish1</button>
     </form>
+    <script>
+  
+    </script>
 </body>
 </html>

@@ -5,10 +5,18 @@ function sign(id){
 };
 
 function token_check(id){
-    try {
+    try{
+        let token = req.header("-x-token")    
+        let decoded = jwt.verify(token,"YashirinKOD");
+        // console.log(decoded);
+        req.body.jwt_id = decoded.id;
+        next();
+        }
+        catch(err){
+        return res.status(400).send("Token eskirgan");
+        }
         
-    } catch (error) {
         
-    }
+        
 }   
-export {sign}
+export {sign, token_check}
