@@ -4,27 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        
-        
-    </style>
 </head>
 <body>
-    <form enctype="multipart/form-data" action="http://localhost:4100/admin/createTask"  method="post">
-    Name : <input name="name"  type="text"> <br>
-    Description <textarea name="description" id=""></textarea><br>
-    Admin_ID <input type="text" name="admin_id"><br>
-    worker_id <input type="text" name="worker_id"><br>
-    diedline<input type="datetime-local" name="diedline" id="">
-    <label for="active">active</label> <input type="checkbox" value="true" id="active" name="active"> 
-    MaxRate <input type="number" name="MaxRate" id="">
-    Done <input type="checkbox" name="done" value="true">
+    <form enctype="multipart/form-data">
+        Name: <input name="name" value="Ergashev Jamshid" type="text"><br>
+        Description: <textarea name="description">ddddddddddddddddddddddd</textarea><br>
+        Worker ID: <input type="text" value="5" name="worker_id"><br>
+        Deadline: <input value="2024-07-12T13:57" type="text" name="diedline"><br>
+        <label for="active">Active</label> <input type="checkbox" checked  id="active" name="active"><br>
+        Max Rate: <input value="1000" type="number" name="MaxRate"><br>
+        Done: <input type="checkbox" name="done"  checked><br>
+        Urinishlar: <input type="number" name="attempt" value="4" checked><br>
 
-        <input type="file" name="file" id="">
+        <input type="file" name="file"><br>
         <button type="submit">Yuborish1</button>
     </form>
     <script>
-  
+        let form = document.querySelector("form");
+        form.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            let formData = new FormData(form);
+
+            try {
+                let response = await fetch("http://localhost:4100/admin/createTask", {
+                    method: "POST",
+                    headers: {
+                        '-x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE3MjA3NzkwMzUsImV4cCI6MTcyMDc4MjYzNX0.sZNyPx3jz1IQFi7OqfCvQZSodzTJ9K1-89hVMEnv8Ng'
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+
+                let data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('There has been a problem with your fetch operation:', error);
+            }
+        });
     </script>
 </body>
 </html>
