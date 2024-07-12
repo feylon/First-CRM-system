@@ -243,6 +243,9 @@ INSERT INTO districts (id, region_id, name_uz, name_oz, name_ru) VALUES
 (224, 5, 'Shahrisabz shahri', 'Шаҳрисабз шаҳри', 'Город Шахрисабз'),
 (225, 5, 'Ko‘kdala tumani', 'Кўкдала тумани', 'Кукдалинский район');
 
+
+
+
 `);
     } catch (error) {
         if(error.code == "42P07") return;

@@ -3,10 +3,30 @@ import { Router, query } from "express";
 import Joi from "joi";
 import { sign } from "../../Functions/jwt.js";
 
+(async()=>{
+    try {
+        await global.pool.query(
+            `
+            create table jwt_admin
+    (id bigserial primary key unique,
+    admin_id integer unique not null,
+    foreign key (admin_id) references admin (id),
+    jwt varchar(1000),
+    ip varchar(100));
+            `
+        );
+    } catch (error) {
+        if(error.code == "42P07") return;
+    
+        console.log(error);
+    }
+})()
+
 const router = Router();
 
 router.post("/", async function (req, res){
 try{
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     {const Scheme = Joi.object({
     email: Joi.string().min(0).max(100).required().trim(),
     password: Joi.string().min(0).max(100).required().trim()
@@ -30,7 +50,22 @@ const check_login = await check(password, data.rows[0].password);
 if(check_login)
 {
     if(!data.rows[0].active) return res.status(401).send("Admin tomonidan bloklangan")
-    return res.status(200).send({token:sign(data.rows[0].id)});
+    let token = sign(data.rows[0].id);
+try {
+    await global.pool.query(`insert into jwt_admin (admin_id, jwt, ip) values ($1, $2, $3)`, 
+    [data.rows[0].id, token, clientIp]);
+
+} catch (error) {
+    if(error.code == "23505")
+        await global.pool.query(`UPDATE jwt_admin
+SET jwt = $1,
+	ip = $2
+WHERE admin_id = $3;
+`,[token,clientIp,data.rows[0].id]);
+else
+    console.log(error)
+}
+    return res.status(200).send({token:token});
 }
 else return res.status(401).send("Parol yoki login xato");
 }
