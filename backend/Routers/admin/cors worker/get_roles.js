@@ -1,8 +1,9 @@
 import { Router } from "express";
+import { token_check } from "../../../Functions/jwt.js";
 
 let router = Router();
 
-router.get("/", async (req, res)=>{
+router.get("/", [token_check], async (req, res)=>{
    let data = await global.pool.query(`
     SELECT * FROM public.role_worker
 ORDER BY id ASC; 

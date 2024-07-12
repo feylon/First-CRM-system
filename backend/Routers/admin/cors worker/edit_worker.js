@@ -1,7 +1,8 @@
 import { Router } from "express";
 import Joi from "joi";
+import { token_check } from "../../../Functions/jwt.js";
 const router = Router();
-router.post("/:id", async (req, res) => {
+router.post("/:id", [token_check], async (req, res) => {
   const Schema = Joi.object({
     email: Joi.string().email().trim().required().min(3).max(50),
     firstname: Joi.string().trim().required().min(3).max(50),

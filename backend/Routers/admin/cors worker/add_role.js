@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { Router } from "express";
+import { token_check } from "../../../Functions/jwt.js";
 
 (async()=>{
     try {
@@ -18,7 +19,7 @@ import { Router } from "express";
     }
 })();
 
-export default Router().post("/", async(req, res)=>{
+export default Router().post("/", [token_check], async(req, res)=>{
 const Schema = Joi.object({
     name :Joi.string().trim().required().min(3)
 });

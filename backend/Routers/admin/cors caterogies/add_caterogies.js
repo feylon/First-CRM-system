@@ -1,10 +1,10 @@
 import Joi from "joi";
 import { Router } from "express";
-
+import { token_check } from "../../../Functions/jwt.js";
 
 const router = Router();
 
-router.post("/", async function(req, res){
+router.post("/", [token_check], async function(req, res){
     const Scheme = Joi.object({ name : Joi.string().min(3).max(50).trim().required() });
     const checkSchema = Scheme.validate(req.body);
     if(checkSchema.error) return res.status(400).send(checkSchema.error.message);

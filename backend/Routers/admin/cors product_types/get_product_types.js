@@ -1,9 +1,10 @@
 import { Router } from "express";
 import Joi from "joi";
+import { token_check } from "../../../Functions/jwt.js";
 
 const router = Router();
 
-router.get("/", async function (req, res){
+router.get("/", [token_check], async function (req, res){
 
     const Schema = Joi.object(
         {

@@ -2,6 +2,7 @@ import Joi from "joi";
 import { Router } from "express";
 import { hash } from "../../../Functions/bcryptr.js";
 import { joiPasswordExtendCore } from "joi-password";
+import { token_check } from "../../../Functions/jwt.js";
 const joiPassword = Joi.extend(joiPasswordExtendCore);
 
 (async () => {
@@ -35,7 +36,7 @@ const joiPassword = Joi.extend(joiPasswordExtendCore);
 })();
 
 const router = Router();
-router.post("/", async (req, res) => {
+router.post("/",[token_check], async (req, res) => {
   const Schema = Joi.object({
     email: Joi.string().email().trim().required().min(3).max(50),
     firstname: Joi.string().trim().required().min(3).max(50),

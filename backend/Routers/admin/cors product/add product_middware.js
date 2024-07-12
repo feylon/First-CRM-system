@@ -2,9 +2,10 @@ import Joi from "joi";
 import req_checker from "./add_product.js"
 import { Router } from "express";
 import file_Upload from "../../../Functions/upload.js"
+import { token_check } from "../../../Functions/jwt.js";
 
 const router = Router();
-router.post("/",[req_checker,], async function (req, res){
+router.post("/",[token_check, req_checker,], async function (req, res){
     
 const {
     product_type_id,

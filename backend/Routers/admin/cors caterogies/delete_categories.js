@@ -1,9 +1,10 @@
 import Joi from "joi";
 import { Router } from "express";
+import { token_check } from "../../../Functions/jwt.js";
 
 const router = Router();
 
-router.delete("/:id", async function(req,res){
+router.delete("/:id",[token_check], async function(req,res){
     try {
         let check_content = 
         await global.pool.query(
