@@ -1,5 +1,5 @@
-'use strict'
-import http from "http";
+// 'use strict'
+// import http from "http";
 import express, {urlencoded} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -42,13 +42,18 @@ admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 worker.forEach(i=>app.use(`/worker/${i[1]}`,i[0]));
 
 
-http.createServer(app).listen(
+// http.createServer(app).listen(
+//     process.env.PORT
+//     // 8080
+//     , function(){
+//     console.log("PORT : ", process.env.PORT);
+// })
+app.listen(
     process.env.PORT
-    // 8080
-    , function(){
-    console.log("PORT : ", process.env.PORT);
-})
-
+        , function(){
+        console.log("PORT : ", process.env.PORT);
+    }
+)
 
 
 // ngrok.connect({ addr: 8080, authtoken_from_env: true })

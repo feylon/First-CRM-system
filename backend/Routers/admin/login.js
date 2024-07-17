@@ -2,6 +2,7 @@ import { check } from "../../Functions/bcryptr.js";
 import { Router, query } from "express";
 import Joi from "joi";
 import { sign } from "../../Functions/jwt.js";
+import login_history_admin from "../../Functions/login_history_admin.js";
 
 (async()=>{
     try {
@@ -35,7 +36,6 @@ const checkSchema = Scheme.validate(req.body);
 if(checkSchema.error) return res.status(401).send(checkSchema.error.message);
 
 const {email, password}  = req.body;
-console.log(email)
 const data = await global.pool.query(
     `
     Select id, email, login, password, active
@@ -44,8 +44,8 @@ const data = await global.pool.query(
     where (state = true and email = '${email}');
     `
 );
-console.log(data.rows)
-if(data.rows.length == 0) return res.status(401).send("Parol yoki login xato");
+if(data.rows.length == 0) {
+    return res.status(401).send("Parol yoki login xato");}
 const check_login = await check(password, data.rows[0].password);
 if(check_login)
 {
@@ -65,9 +65,13 @@ WHERE admin_id = $3;
 else
     console.log(error)
 }
-    return res.status(200).send({token:token});
+await login_history_admin(data.rows[0].id, true, clientIp);
+   
+return res.status(200).send({token:token});
 }
-else return res.status(401).send("Parol yoki login xato");
+else{
+    await login_history_admin(data.rows[0].id, false, clientIp);
+    return res.status(401).send("Parol yoki login xato");}
 }
 
 } 

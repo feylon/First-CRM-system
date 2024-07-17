@@ -15,7 +15,7 @@ create table users (
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_seen TIMESTAMP,
         delete_at TIMESTAMP
-)
+);
 
 -- admin shabloni 
 create table admin(
