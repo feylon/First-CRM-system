@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import  dotenv  from "dotenv";
 dotenv.config();
 function sign(id) {
-  return jwt.sign({ id }, process.env.tokenAdminCode, { expiresIn: "1h" });
+  return jwt.sign({ id }, process.env.tokenAdminCode, { expiresIn: "7d" });
 }
 
 async function token_check(req, res, next) {

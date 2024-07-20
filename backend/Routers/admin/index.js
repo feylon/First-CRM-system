@@ -23,11 +23,13 @@ import edit_worker from "./cors worker/edit_worker.js";
 
 // Tasks Selection
 
-import createTask from "./tasks/create.js"
+import createTask from "./tasks/create.js";
 
 
 // issues
-import add_issues from "./Issues/add.js"
+import add_issues from "./Issues/add.js";
+import get_issues from "./Issues/get_Issues.js"
+
 export default 
 
 [
@@ -54,5 +56,6 @@ export default
 
 [createTask,"createTask"],
 
-[add_issues, "add_issues"]
+[add_issues, "add_issues"],
+[get_issues,"get_issues"]
 ];
