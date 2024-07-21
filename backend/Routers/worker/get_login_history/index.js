@@ -1,6 +1,6 @@
 import { Router } from "express";
 import Joi from "joi";
-import { check } from "../../../Functions/jwt_worker.js";
+import { check, get_id } from "../../../Functions/jwt_worker.js";
 
 const router = Router();
 
@@ -15,7 +15,7 @@ router.get("/",[check], async function (req, res){
     const checkSchema = Schema.validate(req.query);
     if(checkSchema.error) return res.status(400).send(checkSchema.error.message)
 try {
-
+const id = get_id(req, res, next);
     const {page, size} = req.query;
         const data = await global.pool.query(
     `
@@ -33,7 +33,7 @@ WHERE
 LIMIT $1 OFFSET ($2 - 1)  *  $3;	
 	
     `,
-    [size, page, size, req.body.jwt_id]
+    [size, page, size, id]
         )
 
 return res.status(200).send(data.rows);
