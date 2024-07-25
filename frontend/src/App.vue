@@ -1,5 +1,7 @@
 <template>
   <n-message-provider>
-    <Router-View></Router-View>
+    <div class=" min-h-screen min-w-full">
+      <Router-View></Router-View>
+    </div>
   </n-message-provider>
 </template>
