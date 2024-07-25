@@ -32,5 +32,14 @@ else return res.status(401).send("Token eskirgan");
     console.log(error)
   }
 }
+function get_id(req, res, next){
+  try {
+   let token = req.header("-x-token")    
+   let decoded = jwt.verify(token,process.env.tokenAdminCode);
+   return eval(decoded.id); 
+  } catch (error) {
+   return res.status(401).send("Token eskirgan");
 
-export { sign, token_check };
+  }
+}  
+export { sign, token_check,get_id };

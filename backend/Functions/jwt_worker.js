@@ -13,7 +13,7 @@ function check(req, res, next){
         next();
         }
         catch(err){
-        return res.status(400).send("Token eskirgan");
+        return res.status(401).send("Token eskirgan");
         }
         
         
@@ -24,7 +24,7 @@ function get_id(req, res, next){
     let decoded = jwt.verify(token,"YashirinKOD");
     return eval(decoded.id); 
    } catch (error) {
-    return res.status(400).send("Token eskirgan");
+    return res.status(401).send("Token eskirgan");
 
    }
 }        

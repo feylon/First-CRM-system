@@ -1,5 +1,6 @@
 // 'use strict'
-// import http from "http";
+import http from "http";
+import os from 'os';
 import express, {urlencoded} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -42,18 +43,32 @@ admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 worker.forEach(i=>app.use(`/worker/${i[1]}`,i[0]));
 
 
-// http.createServer(app).listen(
-//     process.env.PORT
-//     // 8080
-//     , function(){
-//     console.log("PORT : ", process.env.PORT);
-// })
-app.listen(
-    process.env.PORT
-        , function(){
-        console.log("PORT : ", process.env.PORT);
-    }
-)
+
+// const networkInterfaces = os.networkInterfaces();
+// let localIP;
+
+// for (const interfaceName in networkInterfaces) {
+//   for (const net of networkInterfaces[interfaceName]) {
+//     if (net.family === 'IPv4' && !net.internal) {
+//       localIP = net.address;
+//       break;
+//     }
+//   }
+//   if (localIP) break;
+// }
+
+const hostname = "192.168.100.11";
+
+const post = process.env.PORT;
+http.createServer(app).listen(
+    process.env.PORT,
+
+    hostname, () => {
+    console.log(`Server  http://${hostname}:${process.env.PORT}`)
+}
+);
+
+process.env.PORT
 
 
 // ngrok.connect({ addr: 8080, authtoken_from_env: true })

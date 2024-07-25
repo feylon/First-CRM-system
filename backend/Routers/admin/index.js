@@ -30,6 +30,9 @@ import createTask from "./tasks/create.js";
 import add_issues from "./Issues/add.js";
 import get_issues from "./Issues/get_Issues.js"
 
+
+// date rate
+import add_date_rate from "./date_rate/add.js"
 export default 
 
 [
@@ -57,5 +60,9 @@ export default
 [createTask,"createTask"],
 
 [add_issues, "add_issues"],
-[get_issues,"get_issues"]
+[get_issues,"get_issues"],
+
+// date rate
+
+[add_date_rate, "add_date_rate"]
 ];
