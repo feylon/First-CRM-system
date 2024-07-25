@@ -77,8 +77,8 @@ let password = ref("!Jamshid14092002");
 let loading = ref(false);
 let options = [{ label: "O'zb", key: "uz" }, { label: "En", key: 'en' }]
 function changeLang(key) {
-    if (String(key) == 'en') return i18n.global.locale = 'en';
-    if (String(key) == 'uz') return i18n.global.locale = 'uz';
+    if (String(key) == 'en') {localStorage.setItem('lang','en');return i18n.global.locale = 'en';}
+    if (String(key) == 'uz') {localStorage.setItem('lang','uz');return i18n.global.locale = 'uz';}
 }
 async function login_func (){
 

@@ -60,11 +60,10 @@ notifications
             :options="menuOptions"
           />
         </n-layout-sider>
-        <n-layout id="#style-13" >
-          <div class="p-3">
-              salom <span class="material-symbols-outlined">
-  book_5
-</span>
+        <n-layout>
+          <div class="p-3 mb-2">
+              
+            <RouterView></RouterView>
   
 </div>
         </n-layout>
@@ -77,12 +76,16 @@ notifications
   import { ref,h } from 'vue';
   import i18n from '../../../lang';
   
-
-
+  
+  
   import { RouterLink, useRouter } from "vue-router";
   import { useMessage } from "naive-ui";
   import {v4 as uuidv4} from 'uuid';
+
+
+
 let options_lang = [{ label: "O'zb", key: "uz" }, { label: "En", key: 'en' }];
+const {t} = i18n.global;
 const router = useRouter();
 let delete1 = ref(0);
 let notification = ref(0);
@@ -95,8 +98,8 @@ let time = setInterval(()=>{notification.value ++;
 }, 1000)
 
   function changeLang(key) {
-    if (String(key) == 'en') return i18n.global.locale = 'en';
-    if (String(key) == 'uz') return i18n.global.locale = 'uz';
+    if (String(key) == 'en') {localStorage.setItem('lang','en');window.location.reload();}
+    if (String(key) == 'uz') {localStorage.setItem('lang','uz');window.location.reload();}
 }
   function renderIcon(className) {
     return () => h("i", {class:className});
@@ -110,20 +113,20 @@ let time = setInterval(()=>{notification.value ++;
   const menuOptions = [
     
     {
-      label: "O'quv reja",
+      label: t("Curriculum"),
       key: "pinball-1973",
-       icon: renderIconSpan("school"),
+       icon: renderIconSpan("group"),
       disabled: false,
       children: [
         {
           label: () => h(
         RouterLink,
         {
-          to:"/admin/login"
+          to:"/admin/Add_worker"
         },
-        { default: () => "Dars jadvali" }),
-          key: "Dars jadvali",
-          icon: renderIcon("fas fa-calendar-days")
+        { default: () => t('addWorker') }),
+          key: "addWorker",
+          icon: renderIconSpan("group_add")
         },
         {
           label: () => h(
@@ -228,7 +231,7 @@ let time = setInterval(()=>{notification.value ++;
   
     },
     {
-      label:"O'quvchi ma'lumotlari",
+      label:"Ishchi ma'lumotlari",
       key:"student-information",
       icon: renderIconSpan("dictionary"),
       children:[
