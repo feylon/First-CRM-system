@@ -8,17 +8,19 @@
             <n-table :bordered="false" :single-line="false">
     <thead>
       <tr>
-        <th>Abandon</th>
-        <th>Abnormal</th>
-        <th>Abolish</th>
-        <th>...</th>
-        <th>It's hard to learn words</th>
+        <th>№</th>
+        <th>{{$t("firstname")}}</th>
+        <th>{{$t("lastname")}}</th>
+        <th>{{$t("email")}}</th>
+        <th>{{$t("phone")}}</th>
+        <th>{{$t("birthday")}}</th> 
+        <th>{{$("viloyat")}}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>放弃</td>
-        <td>反常的</td>
+        <td></td>
+        <td></td>
         <td>彻底废除</td>
         <td>...</td>
         <td>Damn it! I can't remember those words.</td>
@@ -35,9 +37,9 @@
 
 
 
-            <n-pagination v-model:page="page" :page-count="total" />
-        </div>
-    </div>
+            <n-pagination @change = "console.log(page);get_worker()" v-model:page="page" :page-count="total" />
+"        </div>
+"    </div>
 </template>
 
 <script setup>
@@ -47,12 +49,13 @@ import { useMessage } from "naive-ui";
 import { useRouter } from "vue-router";
 const router = useRouter();
 let data = ref([]);
+const {t} = i18n.global;
 let page = ref(1);
-let total = ref(100)
+let total = ref(1)
 let token = localStorage.token;
 let get_worker = async function(){
     let backend = await fetch(`${window.base}/admin/get_worker?${new URLSearchParams({
-        page :1,
+        page :page.value,
         size : 10
     }).toString()}`,
         {
@@ -66,13 +69,13 @@ let get_worker = async function(){
     console.log(backend.status);
     if(backend.status == 200) {
         backend = await backend.json();
+        total.value = Math.trunc(backend[0].total / 10 + 1); 
         console.log(backend)
     }
 }
 onMounted(async()=>{
     get_worker()
-})
-
+});
 </script>
 
 <style lang="scss" scoped>

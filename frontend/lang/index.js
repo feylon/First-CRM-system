@@ -60,7 +60,15 @@ const i18n = createI18n({
       editRoleSuccess : "Rol muvaqiyatli tahrirlandi",
     
       // Worker page  
-      Workers : "Ishchilar"
+      Workers : "Ishchilar",
+      firstname : 'Ismi',
+      lastname : "Familiyasi",
+      email : "Email",
+      birthday : "Tug'ilgan kuni",
+      viloyat : "Viloyat",
+      tuman : "tuman",
+      phone : "Telefon",
+      RoleName : "Roli"
     },
   },
 });
