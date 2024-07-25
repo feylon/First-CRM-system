@@ -26,7 +26,12 @@ const i18n = createI18n({
       roles : "Roles",
       addRole : "Add role",
       successAddRole : "Added role success",
-      errorAddRole : " is already added"
+      errorAddRole : " is already added",
+      editrole : "Edit role",
+      editRoleSuccess : "Role edided successfully",
+
+      // worker page
+      Workers : "Workers"
     },
     uz: {
       Airleet: "Airleet",
@@ -50,8 +55,12 @@ const i18n = createI18n({
       roles : "Rollar",
       addRole : "Rol qo'shish",
       successAddRole : "Yangi rol muvaqiyatli qo'shildi",
-      errorAddRole : " bunday rol mavjud"
-
+      errorAddRole : " bunday rol mavjud",
+      editrole : "Rolni tahrirlash",
+      editRoleSuccess : "Rol muvaqiyatli tahrirlandi",
+    
+      // Worker page  
+      Workers : "Ishchilar"
     },
   },
 });

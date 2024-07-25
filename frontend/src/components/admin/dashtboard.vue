@@ -61,7 +61,7 @@ notifications
           />
         </n-layout-sider>
         <n-layout>
-          <div class="p-3 mb-2">
+          <div class="p-3 pb-[100px]">
               
             <RouterView></RouterView>
   
@@ -276,7 +276,7 @@ let time = setInterval(()=>{notification.value ++;
         )),
         
         h("div",{class:"text-[13px] text-center"},h("div",
-        {innerHTML :`O'quvchi `}
+        {innerHTML :`Admin `}
         )),
             ])
         ])

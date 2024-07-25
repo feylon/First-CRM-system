@@ -19,7 +19,8 @@ try {
     const {page, size} = req.query;
         const data = await global.pool.query(
     `
-        select  
+        WITH ActiveUsers AS (
+    SELECT 
         email,
         firstname,
         lastname,
@@ -27,12 +28,14 @@ try {
         phone,
         viloyat,
         tuman,
-        p.name as role_name
-        
-from worker
-inner join
-role_worker p on worker.role_id = p.id
-where worker.state = true
+        p.name AS role_name
+    FROM worker
+    INNER JOIN role_worker p ON worker.role_id = p.id
+    WHERE worker.state = true
+)
+
+SELECT COUNT(*) OVER () AS total, *
+FROM ActiveUsers
 LIMIT $1 OFFSET ($2 - 1)  *  $3;	
     `,
     [size, page, size]
