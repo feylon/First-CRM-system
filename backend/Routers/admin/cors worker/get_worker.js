@@ -26,16 +26,25 @@ try {
         lastname,
         brithday,
         phone,
-        viloyat,
-        tuman,
-        p.name AS role_name
+        s.name_uz as tuman_lotin,
+		s.name_oz as tuman_krill,
+		s.name_ru as tuman_ru ,
+		r.name_uz,
+		r.name_oz,
+		r.name_ru,
+        p.name AS role_name,
+        active
     FROM worker
     INNER JOIN role_worker p ON worker.role_id = p.id
+    INNER JOIN regions r ON worker.viloyat = r.id
+    INNER JOIN districts s ON worker.tuman = s.id
+	
     WHERE worker.state = true
 )
 
 SELECT COUNT(*) OVER () AS total, *
 FROM ActiveUsers
+ORDER BY lastname
 LIMIT $1 OFFSET ($2 - 1)  *  $3;	
     `,
     [size, page, size]

@@ -1,9 +1,9 @@
-import {createRouter, createWebHistory} from "vue-router"
+import {createRouter, createWebHashHistory} from "vue-router"
 
 export default
 
 createRouter({
-    history:createWebHistory(),
+    history:createWebHashHistory(),
     routes : [
         {path:"/admin/login", component : ()=>import('../src/components/admin/login.vue')},
         {path:"/", component : ()=>import('../src/components/admin/login.vue')},

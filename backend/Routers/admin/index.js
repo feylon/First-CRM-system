@@ -33,6 +33,11 @@ import get_issues from "./Issues/get_Issues.js"
 
 // date rate
 import add_date_rate from "./date_rate/add.js"
+
+// Another router
+import regions from "./another_router/get_regios.js"
+
+
 export default 
 
 [
@@ -64,5 +69,7 @@ export default
 
 // date rate
 
-[add_date_rate, "add_date_rate"]
+[add_date_rate, "add_date_rate"],
+
+[regions, "regions"]
 ];

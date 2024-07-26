@@ -17,8 +17,10 @@ const joiPassword = Joi.extend(joiPasswordExtendCore);
     brithday date default '2000-01-01',
     profil_url varchar(500),
     phone varchar(200),
-    viloyat varchar(200),
-    tuman varchar(200),
+    viloyat integer,
+    foreign key (viloyat) references regions(id),
+    tuman integer,
+    foreign key (tuman) references districts(id),
     state boolean default true,
     active boolean default true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -43,8 +45,8 @@ router.post("/",[token_check], async (req, res) => {
     lastname: Joi.string().trim().required().min(3).max(50),
     brithday: Joi.date().required(),
     phone: Joi.string().required().trim().min(7),
-    viloyat: Joi.string().required(),
-    tuman: Joi.string().required(),
+    viloyat: Joi.number().required(),
+    tuman: Joi.number().required(),
     role_id: Joi.number().min(0).required(),
     password: joiPassword
       .string()
@@ -58,8 +60,9 @@ router.post("/",[token_check], async (req, res) => {
       .required(),
   });
   let checkValidate = Schema.validate(req.body);
+    console.log(req.body)
   if (checkValidate.error)
-    return res.status(400).send(checkValidate.error.message);
+    return res.status(202).send({error : checkValidate.error.message});
   req.body.password = await hash(req.body.password);
   const {
     email,
@@ -105,12 +108,11 @@ router.post("/",[token_check], async (req, res) => {
     );
     res.status(201).send(data.rows);
   } catch (error) {
-    if (error.code == "23505") return res.status(400).send(error.detail);
-    if (error.code == "23503")
-      return res
-        .status(400)
-        .send(`Kalit (role_id)=(${role_id}) "Rollar" jadvalida mavjud emas.`);
+    if (error.code == "23505") return res.status(202).send({error : error.detail});
     console.log(error);
+    if (error.code == "23503")
+      return res.status(202)
+        .send({error : `Kalit (role_id)=(${role_id}) "Rollar" jadvalida mavjud emas.`});
   }
 });
 

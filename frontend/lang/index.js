@@ -34,10 +34,15 @@ const i18n = createI18n({
       Workers : "Workers"
     },
     uz: {
+      // Default
+      firstname : "Ismi",
+      lastname : "Familiya",
+      password : "Parol",
+      brithday : "Tug'ilgan kuni",
+      phone : "Telefon",
       Airleet: "Airleet",
       Login: "Admin panel",
-      Login_dectiption:
-        "tizimga kirish uchun qandaydir ishlarni boshlash kerak",
+      Login_dectiption:"tizimga kirish uchun qandaydir ishlarni boshlash kerak",
       EnterYourLogin: "Emailni kiriting",
       loginbutton: "Kirish",
       enteryourpassword: "Enter your password",
@@ -66,9 +71,10 @@ const i18n = createI18n({
       email : "Email",
       birthday : "Tug'ilgan kuni",
       viloyat : "Viloyat",
-      tuman : "tuman",
+      tuman : "Tuman",
       phone : "Telefon",
-      RoleName : "Roli"
+      RoleName : "Roli",
+      active : "Faollik"
     },
   },
 });
