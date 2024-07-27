@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { Router } from "express";
-import { token_check } from "../../../Functions/jwt.js";
+import { token_check, get_id } from "../../../Functions/jwt.js";
 (async () => {
   try {
     await global.pool.query(
@@ -15,8 +15,26 @@ admin_id integer not null,
 foreign key (admin_id) references admin (id),
 time Date not null,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
-state boolean default true
-)`
+state boolean default true,
+UNIQUE (worker_id, time)
+);
+CREATE OR REPLACE FUNCTION check_date_not_future2() 
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.time > CURRENT_DATE THEN
+        RAISE EXCEPTION 'Bugungi sanadan oshib ketishi mumkin emas !';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger that calls the function before insert or update
+CREATE TRIGGER date_check_trigger1
+BEFORE INSERT OR UPDATE ON issues
+FOR EACH ROW EXECUTE FUNCTION check_date_not_future2();
+
+
+`
     );
   } catch (error) {
     if (error.code == "42P07") return;
@@ -27,44 +45,50 @@ state boolean default true
 
 const router = Router();
 
-router.post("/", [token_check], async function (req, res) {
-  const Schema = Joi.object({
+router.post("/", [token_check], async function (req, res, next) {
+  
+  const Schema = Joi.array().items(
+    Joi.object({
     reason: Joi.boolean().required(),
-    detail: Joi.string().min(5).max(499),
+    detail: Joi.string().min(5).max(499).required(),
     worker_id: Joi.number().min(1).required(),
-    admin_id: Joi.number().min(1).required(),
-    time: Joi.date().required(),
-  });
+    time: Joi.string().required(),
+  }));
   const checkSchema = Schema.validate(req.body);
+  if (checkSchema.error) return res.status(202).send({error:checkSchema.error.message});
+  const { reason, detail, worker_id,  time } = req.body;
+ 
+  
+  try {
 
-  if (checkSchema.error) return res.status(400).send(checkSchema.error.message);
-  const { reason, detail, worker_id, admin_id, time } = req.body;
-  try {
-    let data = await global.pool.query(
-      "select p.lastname, p.firstname from issues inner join worker p on issues.worker_id = p.id where (worker_id = $1 and time = $2) ;",
-      [worker_id, time]
-    );
-    if (data.rows[0])
-      return res
-        .status(400)
-        .send(
-          `${time} sanada ${data.rows[0].lastname} ${data.rows[0].firstname}dan davomat olingan`
-        );
+    let admin_id = get_id(req, res, next);
+  
+
+    await global.pool.query("BEGIN");
+
+    const queryText = `insert into issues(reason, detail, worker_id, admin_id, time) values ($1, $2, $3, $4, $5);` 
+
+    for (let data of req.body) {
+    const { reason, detail, worker_id,  time } = data;
+    await global.pool.query(queryText, [reason, detail, worker_id, admin_id, time]);
+
+    }
+
+    await global.pool.query("COMMIT");
+    res.status(201).send(req.body);
+
+    
   } catch (error) {
+    if (error.code == "P0001")
+      return res.status(202).send("Sana berilgan sanadan oshib ketdi");
+    if (error.code == "22007")
+      return res.status(202).send("Berilgan sana xato");
+    if (error.code == "23503") return res.status(202).send({error :error.detail});
+    if (error.code == "23505") return res.status(202).send({error :error.detail});
+
     console.log(error);
   }
-  try {
-    await global.pool.query(
-      `insert into issues(reason, detail, worker_id, admin_id, time) values ($1, $2, $3, $4, $5);`,
-      [reason, detail, worker_id, admin_id, time]
-    );
-  } catch (error) {
-    if (error.code == "23505") return res.status(400).send(" ");
-    if(error.code == "23503") return res.status(401).send(error.detail)
-    console.log(error);
-    return res.status(500).send("Server error");
-  }
-  return res.status(201).send("Created : )");
-});
+}
+  );
 
 export default router;

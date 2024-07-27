@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class=" mt-4 ms-2 mb-3 font-bold text-[18px] select-none">
+        <div class="container mt-4 ms-2 mb-3 font-bold text-[18px] select-none">
             {{ $t('Workers') }}
 
 
@@ -17,11 +17,12 @@
         <th>{{$t("viloyat")}}</th>
         <th>{{ $t('tuman') }}</th>
         <th>{{ $t("active") }}</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(i,j) in data" :key="i.id">
-        <td>{{ ++ j  }}</td>
+        <td>{{ ++ j  }} {{ i.id }}</td>
         <td>{{ i.lastname }}</td>
         <td>{{ i.firstname }}</td>
         <td>{{ i.email }}</td>
@@ -30,12 +31,16 @@
         <td>{{ i.name_uz }}</td>
         <th>{{ i.tuman_lotin }}</th>
         <th>    <n-switch v-model:value="i.active" :disabled="true" /></th>
+        <th>
+<editWorker :id ="i.id" />
+
+        </th>
       </tr>    </tbody>
   </n-table>
 
 
 
-            <n-pagination @change = "console.log(page);get_worker()" v-model:page="page" :page-count="total" />
+            <n-pagination @change = "get_worker()" v-model:page="page" :page-count="total" />
 <div class="flex justify-end">
   <n-button @click="AddWorkerModal = true">
     {{ $t("addWorker") }}
@@ -178,7 +183,6 @@
       </div>
     </template>
   </n-modal>
-
 </template>
 
 <script setup>
@@ -188,6 +192,8 @@ import { backTopDark, useMessage } from "naive-ui";
 import { useRouter } from "vue-router";
 import Joi from "joi";
 import { joiPasswordExtendCore } from "joi-password";
+import editWorker from "../component/propsEditWorker.vue"
+
 const joiPassword = Joi.extend(joiPasswordExtendCore);
 
 
@@ -243,7 +249,6 @@ const formattedDate = `${year}-${month}-${day}`;
     tuman: (tumanID.value)
   };
   token
-  console.log(data)
   try {
     let backend = await fetch (`${window.base}/admin/add_worker`,
   {
@@ -274,7 +279,6 @@ tumanID.value = null;
 AddWorkerModal.value = false;
 get_worker();
   }
-  console.log(backend)
   } catch (error) {
     console.log(error)
   }
@@ -338,7 +342,7 @@ let backend1 = await fetch(`${window.base}/admin/get_role`,
     }
   }
 );
-console.log(backend1.status);
+
 
 if(backend1.status == 200){
   backend1 = await backend1.json();
@@ -346,7 +350,6 @@ if(backend1.status == 200){
   backend1.forEach((el)=>{
     role.value.push({label : el.name, value : el.id.toString()});
   });
-  console.log(role.value);
 }
 });
 </script>

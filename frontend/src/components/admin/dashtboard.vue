@@ -132,10 +132,10 @@ let time = setInterval(()=>{notification.value ++;
           label: () => h(
         RouterLink,
         {
-          to:"/admin/login"
+          to:"/admin/issues"
         },
-        { default: () => "Fan resurslari" }),
-          key: "Fan resurslari",
+        { default: () => "Davomat" }),
+          key: "issues ",
           icon: renderIcon("fas fa-receipt")
         },
         {

@@ -36,7 +36,7 @@ import add_date_rate from "./date_rate/add.js"
 
 // Another router
 import regions from "./another_router/get_regios.js"
-
+import get_worker_search from "./another_router/get_worker.js"
 
 export default 
 
@@ -71,5 +71,8 @@ export default
 
 [add_date_rate, "add_date_rate"],
 
-[regions, "regions"]
+// 
+[regions, "regions"],
+[get_worker_search,"get_worker_search"]
+
 ];
