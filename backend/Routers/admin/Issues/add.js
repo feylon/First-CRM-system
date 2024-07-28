@@ -84,7 +84,7 @@ router.post("/", [token_check], async function (req, res, next) {
     if (error.code == "22007")
       return res.status(202).send("Berilgan sana xato");
     if (error.code == "23503") return res.status(202).send({error :error.detail});
-    if (error.code == "23505") return res.status(202).send({error :error.detail});
+    if (error.code == "23505") return res.status(203).send({error :error.detail});
 
     console.log(error);
   }

@@ -47,4 +47,79 @@ LIMIT $1 OFFSET ($2 - 1)  *  $3	;
   }
 });
 
+
+
+
+router.post("/find", [token_check], async function (req, res) {
+  const Schema = Joi.object({
+    timeBegin : Joi.string().required(),
+    timeEnd : Joi.string().required(),
+    roleID  : Joi.number(),
+    reason : Joi.boolean()
+  
+  });
+  let checkSchema = Schema.validate(req.body)
+  if(checkSchema.error) return res.status(202).send(checkSchema.error.message);
+  const { timeBegin, timeEnd, roleID, reason  } = req.body;
+
+    if(reason != undefined && roleID) {
+      try {
+                let data1 = await global.pool.query(`
+          select 
+issues.reason,
+array_agg(issues.detail) AS detail,
+array_agg(issues.time ORDER BY issues.time) AS time,
+issues.worker_id,
+p.firstname as firstname,
+p.lastname as lastname,
+q.name as role_name,
+q.id as role_id
+from issues
+
+inner join worker p on p.id = issues.worker_id
+inner join role_worker q on q.id = p.role_id
+where issues.time >= $1 and issues.time <= $2 and  issues.reason = $3  and q.id = $4
+GROUP BY issues.reason,  issues.worker_id, p.firstname, p.lastname, q.name, q.id
+`, [timeBegin, timeEnd, reason, roleID]);
+return res.status(200).send( data1.rows)
+      } catch (error) {
+        console.log(error)
+      }}
+
+
+console.log(reason)
+      if(reason === undefined && roleID) {
+        try {
+                  let data1 = await global.pool.query(`
+            select 
+  
+  array_agg(issues.detail) AS detail,
+  array_agg(issues.time ORDER BY issues.time) AS time,
+  array_agg(issues.reason ORDER BY issues.reason) AS reason,
+
+  issues.worker_id,
+  p.firstname as firstname,
+  p.lastname as lastname,
+  q.name as role_name,
+  q.id as role_id
+  from issues
+  
+  inner join worker p on p.id = issues.worker_id
+  inner join role_worker q on q.id = p.role_id
+  where issues.time >= $1 and issues.time <= $2 and q.id = $3
+  GROUP BY   issues.worker_id, p.firstname, p.lastname, q.name, q.id
+  `, [timeBegin, timeEnd,  roleID]);
+  return res.status(200).send( data1.rows)
+        } catch (error) {
+          console.log(error)
+        }
+
+     res.status(200).send(":)") 
+}
+
+
+
+
+
+});
 export default router;
