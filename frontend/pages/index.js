@@ -11,8 +11,10 @@ createRouter({
          children : 
          [
             {path:"/admin/Add_worker", component : ()=>import('../src/components/admin/worker/worker.vue')},
-            {path:"/admin/issues", component : ()=>import("../src/components/admin/worker/issues.vue")}
-         ]   
+            {path:"/admin/issues", component : ()=>import("../src/components/admin/worker/issues.vue")},
+            {path : "/admin/issuesTable", component : ()=>import("../src/components/admin/worker/issuesTable.vue")}
+            
+        ]   
         }
     ]
 });

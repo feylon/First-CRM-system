@@ -134,7 +134,7 @@ let time = setInterval(()=>{notification.value ++;
         {
           to:"/admin/issues"
         },
-        { default: () => "Davomat" }),
+        { default: () => "Davomat olish" }),
           key: "issues ",
           icon: renderIcon("fas fa-receipt")
         },
@@ -142,9 +142,9 @@ let time = setInterval(()=>{notification.value ++;
           label: () => h(
         RouterLink,
         {
-          to:"/admin/login"
+          to:"/admin/issuesTable"
         },
-        { default: () => "Davomat" }),
+        { default: () => "Davomat jadvali" }),
           key: "Davomat",
           icon: renderIcon("far fa-calendar-xmark")
         },

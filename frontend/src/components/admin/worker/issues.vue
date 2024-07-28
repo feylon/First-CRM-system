@@ -13,7 +13,6 @@
         <th>Mavjud</th>
         <th>Sana
 
-          <n-date-picker v-model:value="searchdate"></n-date-picker>
         </th>
         <th>Sabab</th>
         <th>Tasnif</th>
@@ -91,13 +90,12 @@ const message = useMessage();
 let roleId = ref(null);
 let workers = ref([]);
 let searchdate = ref(Date.now())
-console.log(searchdate.value)
 
 watch(roleId, async (roleId, old)=>{
   
   const token = localStorage.token;
 
-  let backend = await fetch(`${window.base}/admin/get_worker_search/all/?${new URLSearchParams({role_id:roleId, time:searchdate.value}).toString()}`,
+  let backend = await fetch(`${window.base}/admin/get_worker_search/all/?${new URLSearchParams({role_id:roleId}).toString()}`,
     {
       method:  "GET",
             headers : {
@@ -116,7 +114,7 @@ watch(roleId, async (roleId, old)=>{
           worker_id : i.id,
           reason : false,
           detail : "Sababsiz",
-          time : searchdate.value,
+          time : Date.now(),
           lastname : i.lastname,
           firstname : i.firstname,
           role_name : i.role_name
@@ -181,6 +179,14 @@ let save = async function (){
   })
 if(!validate) return;
 
+workers.value.forEach(i=>{
+  if(i.detail.length < 5 ) {
+    message.warning(`${i.lastname} ${i.firstname}ning davomatida sababligi 5 ta belgidan kam bo'lmasligi lozim`)
+    validate = false;
+  };
+})
+if(!validate) return;
+
 
 
 let rebody = [];
@@ -228,16 +234,68 @@ if(backend.status == 201){
 if(backend.status == 401){
       return  router.push("/admin/login")
     }
-if(backend.status == 202){
+if(backend.status == 203){
   backend = await backend.json();
-  message.error(backend.error)
+  
+  let arr = backend.error;
+
+arr = arr.split("Key");
+
+arr = arr.toString();
+arr = arr.split(",");
+
+arr = arr.toString();
+arr = arr.split("worker_id");
+
+arr = arr.toString();
+arr = arr.split('"("');
+
+arr = arr.toString();
+arr = arr.split(")");
+
+arr = arr.toString();
+arr = arr.split(" already exists.");
+
+arr = arr.toString();
+arr = arr.split('"time"');
+
+arr = arr.toString();
+arr = arr.split("=");
+
+arr = arr.toString();
+arr = arr.split("(");
+
+arr = arr.toString();
+
+
+arr = arr.toString();
+arr = arr.split(" ");
+
+arr = arr.toString();
+arr = arr.split(",");
+arr = arr.filter((i) => {
+  return i.length > 0;
+});
+
+const token = localStorage.token;
+
+let backend1 = await fetch(`${window.base}/admin/get_worker_search/byid/${eval(arr[0])}`,
+  {
+    method:  "GET",
+          headers : {
+              "Content-type" : "application/json",
+              "-x-token" : token
+              }
+  }
+);
+if(backend1.status == 200){
+  backend1 = await backend1.json();
+    return  message.error(`${backend1.lastname} ${backend1.firstname} ${arr[1]} sanada davomatdan o'tgan`)
+  
+}
 }  
 } catch (error) {
   console.log(error)
 }  
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
