@@ -38,6 +38,14 @@ import add_date_rate from "./date_rate/add.js"
 import regions from "./another_router/get_regios.js"
 import get_worker_search from "./another_router/get_worker.js"
 
+
+
+// profil admin
+
+import edit_section_profil from "./profil/edit.js";
+import get_section_profil from "./profil/get.js";
+import UpdateProfilAdmin from "./profil/updatePhoto.js";
+import signOutAdmin from "./profil/signOut.js"
 export default 
 
 [
@@ -73,6 +81,10 @@ export default
 
 // 
 [regions, "regions"],
-[get_worker_search,"get_worker_search"]
+[get_worker_search,"get_worker_search"],
+[edit_section_profil, "edit_section_profil"],
+[get_section_profil, "get_section_profil"],
+[UpdateProfilAdmin, "UpdateProfilAdmin"],
+[signOutAdmin, "signOutAdmin"]
 
 ];
