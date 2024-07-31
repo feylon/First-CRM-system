@@ -33,7 +33,8 @@ try {
 		r.name_oz,
 		r.name_ru,
         p.name AS role_name,
-        active
+        active,
+        worker.id
     FROM worker
     INNER JOIN role_worker p ON worker.role_id = p.id
     INNER JOIN regions r ON worker.viloyat = r.id

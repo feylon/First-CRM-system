@@ -13,7 +13,7 @@ let storage = multer.diskStorage({
         let ext = file.originalname.split('.')[file.originalname.split('.').length - 1];
         let name = md5(Date.now());
         cb(null, `${name}.` + ext);
-        req.body.filename = { url: `${name}.` + ext, name: file.originalname };
+        req.body.filename = { url: `ProfilePhotos/${name}.` + ext, name: file.originalname };
     }
 });
 
@@ -50,7 +50,7 @@ router.post("/", [token_check, upload.single('picture')], async (req, res, next)
         );
         if(oldpicture.rows.length > 0) 
            {
-            const filePath = `${process.cwd()}/static/ProfilePhotos/${oldpicture.rows[0].profil_url}`;
+            const filePath = `${process.cwd()}/static/${oldpicture.rows[0].profil_url}`;
 
             fs.unlink(filePath, (err) => {
                 if (err) {

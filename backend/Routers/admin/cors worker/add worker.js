@@ -43,7 +43,7 @@ router.post("/",[token_check], async (req, res) => {
     email: Joi.string().email().trim().required().min(3).max(50),
     firstname: Joi.string().trim().required().min(3).max(50),
     lastname: Joi.string().trim().required().min(3).max(50),
-    brithday: Joi.date().required(),
+    birthday: Joi.date().required(),
     phone: Joi.string().required().trim().min(7),
     viloyat: Joi.number().required(),
     tuman: Joi.number().required(),
@@ -68,7 +68,7 @@ router.post("/",[token_check], async (req, res) => {
     email,
     firstname,
     lastname,
-    brithday,
+    birthday,
     phone,
     viloyat,
     tuman,
@@ -94,7 +94,7 @@ router.post("/",[token_check], async (req, res) => {
         email,
         firstname,
         lastname,
-        brithday,
+        birthday,
         phone,
         viloyat,
         tuman,
@@ -112,7 +112,7 @@ router.post("/",[token_check], async (req, res) => {
     console.log(error);
     if (error.code == "23503")
       return res.status(202)
-        .send({error : `Kalit (role_id)=(${role_id}) "Rollar" jadvalida mavjud emas.`});
+        .send({error : error.detail});
   }
 });
 

@@ -9,8 +9,8 @@ router.post("/:id", [token_check], async (req, res) => {
     lastname: Joi.string().trim().required().min(3).max(50),
     brithday: Joi.date().required(),
     phone: Joi.string().required().trim().min(7),
-    viloyat: Joi.string().required(),
-    tuman: Joi.string().required(),
+    viloyat: Joi.number().required(),
+    tuman: Joi.number().required(),
     role_id: Joi.number().min(0).required(),
     state : Joi.boolean().required(),
     active : Joi.boolean().required()

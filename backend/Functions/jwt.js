@@ -25,9 +25,9 @@ let data = await global.pool.query(
   [id]
 );
 const {jwt, ip} = data.rows[0];
-if(token == jwt && ip == clientIp)
+// if(token == jwt && ip == clientIp)
 next();
-else return res.status(401).send("Token eskirgan");
+// else return res.status(401).send("Token eskirgan");
   } catch (error) {
     console.log(error)
   }
