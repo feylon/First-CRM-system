@@ -41,7 +41,6 @@ router.post("/", [token_check, upload.single('picture')], async (req, res, next)
     let admin_id = get_id(req,res,next);
     
     
-    
     try {
         let oldpicture = await global.pool.query(
             `

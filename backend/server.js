@@ -1,6 +1,6 @@
 // 'use strict'
 import http from "http";
-import os from 'os';
+import cron from "node-cron"
 import express, {urlencoded} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -10,17 +10,36 @@ import ngrok from "@ngrok/ngrok";
 import bodyParser from "body-parser";
 import session from "express-session";
 import login from "./Routers/admin/login.js";
-// app.use("/admi/login")
-// app.use(
-//     session({
-//         secret : 'Jamshid',
-//         resave : false,
-//         saveUninitialized : true,
-//         cookie : {maxAge:300 * 1000},
-        
-//     })
-// );
+import pgsession from "connect-pg-simple";
+const PgSession  = pgsession(session)
+const app = express();
 
+cron.schedule('0 9 * * *', async () => {
+    
+    try {
+        await global.pool.query(`delete FROM public.session`)
+        console.log("Session is cleaned!")
+    } catch (error) {
+    }
+  });
+
+app.use(urlencoded({extended:true}));
+app.use(
+    session({
+      store: new PgSession({
+        pool: global.pool,
+        tableName: 'session',
+      }),
+      secret: process.env.session,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+      },
+    })
+  );
 import region from "./Functions/region.js";
 // Routers
 import user from "./Routers/users/index.js";
@@ -29,7 +48,6 @@ import worker from "./Routers/worker/index.js";
 // Regionlarni o'rnatish
 region();
 dotenv.config();
-const app = express();
 
 (async()=>{
 try {
@@ -43,7 +61,6 @@ console.log("Serverda ulanishda xatolik mavjud ", error)
 // Middlewares
 app.use(express.static("./static"));
 app.use(express.json());
-app.use(urlencoded({extended:true}));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

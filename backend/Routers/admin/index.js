@@ -47,7 +47,8 @@ import get_worker_search from "./another_router/get_worker.js"
 import edit_section_profil from "./profil/edit.js";
 import get_section_profil from "./profil/get.js";
 import UpdateProfilAdmin from "./profil/updatePhoto.js";
-import signOutAdmin from "./profil/signOut.js"
+import signOutAdmin from "./profil/signOut.js";
+import get_login_history from "./login_history/get_login.js";
 export default 
 
 [
@@ -91,6 +92,7 @@ export default
 [edit_section_profil, "edit_section_profil"],
 [get_section_profil, "get_section_profil"],
 [UpdateProfilAdmin, "UpdateProfilAdmin"],
-[signOutAdmin, "signOutAdmin"]
+[signOutAdmin, "signOutAdmin"],
+[get_login_history, "get_login_history"]
 
 ];
