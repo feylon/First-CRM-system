@@ -45,6 +45,9 @@ import region from "./Functions/region.js";
 import user from "./Routers/users/index.js";
 import admin from "./Routers/admin/index.js";
 import worker from "./Routers/worker/index.js";
+
+// WithOut Foreach router
+import add_appeal from "./Routers/appeal/add_apeal.js";
 // Regionlarni o'rnatish
 region();
 dotenv.config();
@@ -71,21 +74,9 @@ app.use(bodyParser.json());
 user.forEach(i=>app.use(`/user/${i[1]}`,i[0]));
 admin.forEach(i=>app.use(`/admin/${i[1]}`,i[0]));
 worker.forEach(i=>app.use(`/worker/${i[1]}`,i[0]));
+app.use('/add_appeal', add_appeal)
 
 
-
-// const networkInterfaces = os.networkInterfaces();
-// let localIP;
-
-// for (const interfaceName in networkInterfaces) {
-//   for (const net of networkInterfaces[interfaceName]) {
-//     if (net.family === 'IPv4' && !net.internal) {
-//       localIP = net.address;
-//       break;
-//     }
-//   }
-//   if (localIP) break;
-// }
 
 const hostname = "192.168.100.11";
 

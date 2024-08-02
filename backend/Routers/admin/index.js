@@ -42,6 +42,11 @@ import get_worker_search from "./another_router/get_worker.js"
 
 
 
+// appeals
+import get_appeal from "./apeal/get.js";
+import edit_appeal from "./apeal/edit.js";
+
+
 // profil admin
 
 import edit_section_profil from "./profil/edit.js";
@@ -93,6 +98,11 @@ export default
 [get_section_profil, "get_section_profil"],
 [UpdateProfilAdmin, "UpdateProfilAdmin"],
 [signOutAdmin, "signOutAdmin"],
-[get_login_history, "get_login_history"]
+[get_login_history, "get_login_history"],
 
+
+
+// apeals
+[get_appeal, "get_appeal"],
+[edit_appeal, "edit_appeal"]
 ];

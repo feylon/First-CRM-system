@@ -103,3 +103,16 @@ WITH (OIDS=FALSE);
 ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid");
 
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+-- Murojaatlar
+Create table appeal
+(
+id bigserial primary key,
+firstname varchar(500) not null,
+lastname varchar(500) not null,
+phone varchar(20) not null,
+text varchar (500),
+checked boolean not null default false,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP	
+);
+
