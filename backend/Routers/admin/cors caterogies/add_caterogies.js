@@ -21,7 +21,7 @@ router.post("/", [token_check], async function(req, res){
         
     } catch (error) {
         if (error.code == '23505') 
-            return res.status(400).send(error.detail)
+            return res.status(202).send(error.detail)
         console.log(error);
 
     }

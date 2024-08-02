@@ -10,7 +10,7 @@ router.post("/", async function(req, res){
     });
     const checkSchema = Schema.validate(req.body);
     if(checkSchema.error)
-        return res.status(400).send(checkSchema.error.message);
+        return res.status(202).send(checkSchema.error.message);
 
     const {id, name} = req.body;
     try {
@@ -26,9 +26,9 @@ return res.status(201).send("Created :)");
 
     } catch (error) {
         if(error.code == "23505")
-    return res.status(400).send(`"${name}"  bu ro'yxatda mavjud`);
+    return res.status(202).send(`"${name}"  bu ro'yxatda mavjud`);
         if(error.code == "23503")
-    return res.status(400).send(`${id} bunday id mavjud emas`);        
+    return res.status(202).send(`${id} bunday id mavjud emas`);        
         console.log(error); 
     }
 

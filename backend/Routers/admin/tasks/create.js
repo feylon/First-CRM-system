@@ -7,26 +7,28 @@ dotenv.config();
 (async()=>{
     try {
         await global.pool.query(`
-create table task
-( id bigserial primary key unique,
-name varchar(500),
-description varchar(500),
-task_file varchar(500),
-task_file_name varchar(500),
-done_file varchar(500),
-done_file_name varchar(500),
-admin_id integer not null,
-foreign key (admin_id) references admin (id),
-worker_id integer not null,
-foreign key (worker_id) references worker (id),
-diedline TIMESTAMP ,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-active boolean default true,
-rate integer default 0,
-MaxRate integer,	
-done boolean default false,
-attempt integer default 1
- );`);
+CREATE TABLE task (
+    id BIGSERIAL PRIMARY KEY UNIQUE,
+    name VARCHAR(500),
+    description VARCHAR(500),
+    task_file VARCHAR(500),
+    task_file_name VARCHAR(500),
+    done_file VARCHAR(500),
+    done_file_name VARCHAR(500),
+    admin_id INTEGER NOT NULL,
+    FOREIGN KEY (admin_id) REFERENCES admin (id),
+    worker_id INTEGER NOT NULL,
+    FOREIGN KEY (worker_id) REFERENCES worker (id),
+    diedline TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    active BOOLEAN DEFAULT true,
+    rate INTEGER DEFAULT 0,
+    MaxRate INTEGER,    
+    done BOOLEAN DEFAULT false,
+    attempt INTEGER DEFAULT 1,
+    CHECK (diedline > CURRENT_TIMESTAMP)
+);
+`);
 
                 console.log("Task database yaratildi");
       } catch (error) {
