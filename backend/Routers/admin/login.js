@@ -39,7 +39,7 @@ await login_history_admin(data.rows[0].id, true, clientIp);
 req.session.adminId = data.rows[0].id;
 req.session.clientIp = clientIp;
 req.session.IsAdmin = true;
-return res.status(200).send({token:token});
+return res.status(200).send({token:token, IsAdmin : true});
 }
 else{
     await login_history_admin(data.rows[0].id, false, clientIp);

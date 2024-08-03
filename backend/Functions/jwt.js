@@ -6,13 +6,34 @@ function sign(id) {
 }
 
 async function token_check(req, res, next) {
-  if (!req.session.IsAdmin) {
-    return res.status(401).send('Unauthorized');
-  }  
-  next();
+  // if (!req.session.IsAdmin) {
+  //   return res.status(401).send('Unauthorized');
+  // }  
+  // next();
+
+
+  try{
+    let token = req.header("-x-token")    
+    let decoded = jwt.verify(token,process.env.tokenAdminCode);
+    next();
+    }
+    catch(err){
+    return res.status(401).send("Token eskirgan");
+    }
+    
+    
+    
 }
 function get_id(req, res, next){
-  
-  return req.session.adminId
+  try {
+    let token = req.header("-x-token")    
+    let decoded = jwt.verify(token,process.env.tokenAdminCode);
+    return eval(decoded.id); 
+   } catch (error) {
+    return res.status(401).send("Token eskirgan");
+
+   }
+
+  // return req.session.adminId
 }  
 export { sign, token_check,get_id };
