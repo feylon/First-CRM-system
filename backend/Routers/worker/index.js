@@ -5,7 +5,7 @@ import get_login_history from "./get_login_history/index.js"
 
 // profil
 import UpdatePhoto from "./Profil/UpdatePhoto.js"
-
+import getprofil from "./Profil/getprofin.js"
 
 
 
@@ -18,5 +18,6 @@ export default
 [get_issues, "get_issues"],
 
 // profil
-[UpdatePhoto, "UpdatePhoto"]
+[UpdatePhoto, "UpdatePhoto"],
+[getprofil, "getprofile"]
 ];

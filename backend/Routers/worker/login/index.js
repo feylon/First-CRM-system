@@ -29,7 +29,7 @@ router.post("/", async function (req, res){
         }
         let token = sign(data.rows[0].id);
         await login_history_worker(data.rows[0].id, true, clientIp);
-        res.status(200).send({token});
+        res.status(200).send({token, isWorker:true});
     } catch (error) {
         console.log("Xatolik bor ", error);
         res.status(500).send("Server xatolikga uchradi")

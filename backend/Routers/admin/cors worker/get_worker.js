@@ -25,6 +25,7 @@ try {
         firstname,
         lastname,
         brithday,
+        profil_url as url,
         phone,
         s.name_uz as tuman_lotin,
 		s.name_oz as tuman_krill,
