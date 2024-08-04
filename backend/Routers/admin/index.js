@@ -1,3 +1,4 @@
+
 import login from "./login.js";
 import add_caterogies from "./cors caterogies/add_caterogies.js";
 import get_caterogies from "./cors caterogies/get_categogies.js";
@@ -9,9 +10,11 @@ import get_product_types from "./cors product_types/get_product_types.js";
 import edit_product_types from "./cors product_types/edit_product_types.js";
 import delete_product_types from "./cors product_types/delete_product_types.js";
 
-
+// product
 import add_product from "./cors product/add product_middware.js";
 import get_product from "./cors product/get_product.js";
+import updatephotoproduct from "./cors product/upload.js"
+
 
 import add_worker from "./cors worker/add worker.js";
 import add_role from "./cors worker/add_role.js";
@@ -68,8 +71,11 @@ export default
 [edit_product_types,"edit_product_types"],
 [delete_product_types, "delete_product_types"],
 
+// product
 [add_product,"add_product"],
 [get_product,"get_product"],
+[updatephotoproduct, "updatephotoproduct"],
+
 
 [add_worker, "add_worker"],
 [add_role, "add_role"],

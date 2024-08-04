@@ -89,10 +89,11 @@ views integer DEFAULT 0,
 likes integer default 0,
 sort_order integer default 1,
 status integer default 1,
-description varchar(500)
+description varchar(500),
+url  varchar(500)
 );
 
-
+-- sessions
 CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",
   "sess" json NOT NULL,

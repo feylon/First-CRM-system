@@ -2,6 +2,9 @@ import login from "./login/index.js";
 import get_login_history from "./get_login_history/index.js"
 
 
+// Task
+
+import gettask from "./cors_task/get_task.js"
 
 // profil
 import UpdatePhoto from "./Profil/UpdatePhoto.js"
@@ -19,5 +22,9 @@ export default
 
 // profil
 [UpdatePhoto, "UpdatePhoto"],
-[getprofil, "getprofile"]
+[getprofil, "getprofile"],
+
+// Task
+[gettask, "gettask"]
+
 ];

@@ -1,3 +1,38 @@
+/**
+ * @swagger
+ * /admin/login:
+ *   post:
+ *     summary: Creates a sample resource
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email address
+ *                 example: jamshid14092002@gmail.com
+ *               password:
+ *                 type: string
+ *                 description: The user's password
+ *                 example: !Jamshid14092002
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: Hello World!
+ */
+
+
+
 import { check } from "../../Functions/bcryptr.js";
 import { Router, query } from "express";
 import Joi from "joi";

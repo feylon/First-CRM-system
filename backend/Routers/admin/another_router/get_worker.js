@@ -1,3 +1,27 @@
+/**
+ * @swagger
+ * /admin/get_worker_search/all?role_id=1:
+ *   get:
+ *     summary: Creates a sample resource
+ *     parameters:
+ *       - in: header
+ *         name: -x-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Custom authentication token
+ *       
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *               example: Hello World!
+ */
+
+
 import Joi from "joi";
 import { Router } from "express";
 import { token_check } from "../../../Functions/jwt.js";
@@ -76,7 +100,7 @@ SELECT
 
 
 
-router.get("/all", async function (req, res) {
+router.get("/all", token_check, async function (req, res) {
   const Schema = Joi.object({
     role_id: Joi.number().required()
     

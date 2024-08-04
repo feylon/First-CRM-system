@@ -11,7 +11,9 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import login from "./Routers/admin/login.js";
 import pgsession from "connect-pg-simple";
-const PgSession  = pgsession(session)
+import swaggerjsdoc from "swagger-jsdoc";
+import swaggerui from "swagger-ui-express";
+const PgSession  = pgsession(session);
 const app = express();
 
 cron.schedule('0 9 * * *', async () => {
@@ -79,6 +81,27 @@ app.use('/add_appeal', add_appeal)
 
 
 const hostname = "192.168.100.11";
+
+
+const spacs = swaggerjsdoc(
+  {
+    definition :{
+      info:{
+        title : "CRM uchun SWAGGER"
+      },
+      openapi:"3.0.0",
+      servers :[{
+        url:"http://192.168.100.11:4100/"
+      }]
+    },
+    apis:[
+      "./Routers/admin/login.js",
+      "./Routers/admin/another_router/get_worker.js"
+
+    ]
+  },
+);
+app.use("/api", swaggerui.serve, swaggerui.setup(spacs))
 
 const post = process.env.PORT;
 http.createServer(app).listen(
