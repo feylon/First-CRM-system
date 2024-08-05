@@ -7,11 +7,14 @@ dotenv.config();
 
  const pool = new Pool(
     {
-        user:process.env.user,
-        password:process.env.password,
-        database:process.env.database,
-        host:process.env.host,
-        port:process.env.port1
+        // user:process.env.user,
+        // password:process.env.password,
+        // database:process.env.database,
+        // host:process.env.host,
+        // port:process.env.port1
+        connectionString :"postgresql://feylon:MUvmW7qenz0ndBNDJCWYweAqn0b6fpSR@dpg-cqobos0gph6c73b6norg-a.oregon-postgres.render.com/crm_dcg0",
+        ssl:true
+
 
     }
  );

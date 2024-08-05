@@ -26,6 +26,7 @@ try {
     price,
     discount_price,
     discount,
+    url,
     quantity,
 	product_types.name as product_types_name,
 	categories.name as categories_name

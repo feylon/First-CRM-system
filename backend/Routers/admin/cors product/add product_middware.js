@@ -11,7 +11,7 @@ router.post("/",[token_check ], async function (req, res){
         product_type_id : Joi.number().required().min(0),
         category_id : Joi.number().required().min(0),
         state : Joi.boolean(),
-        name : Joi.string().min(5).trim().required(),
+        name : Joi.string().min(3).trim().required(),
         price : Joi.number().required().min(0),
         discount_price : Joi.number().required().min(0),
         discount : Joi.number().required().min(0),
@@ -26,7 +26,7 @@ router.post("/",[token_check ], async function (req, res){
     
     const checkValidate = Schema.validate(req.body);
     if(checkValidate.error)
-        return res.status(400).send(checkValidate.error.message);
+        return res.status(202).send(checkValidate.error.message);
       try {
         const {
             product_type_id,
@@ -53,8 +53,8 @@ values ($1, $2,  $3, $4, $5, $6, $7,  $8, $9 );`, [
     description])
 return res.status(201).send({created : true})
       } catch (error) {
-        if(error.code == '23505') return res.status(400).send({error : error.detail})
-        if(error.code == '23503') return res.status(400).send({error : error.detail})
+        if(error.code == '23505') return res.status(202).send({error : error.detail})
+        if(error.code == '23503') return res.status(202).send({error : error.detail})
 
         console.log(error)
       }

@@ -21,7 +21,6 @@ const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
 const fileFilter = (req, file, cb) => {
     console.log(req.body);
-    if(req.body.salom == '1') return cb(new Error('salom'), false)
     if (allowedMimeTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
