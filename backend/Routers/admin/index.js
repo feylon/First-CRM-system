@@ -57,6 +57,7 @@ import get_section_profil from "./profil/get.js";
 import UpdateProfilAdmin from "./profil/updatePhoto.js";
 import signOutAdmin from "./profil/signOut.js";
 import get_login_history from "./login_history/get_login.js";
+import changepassword from "./profil/changepassword.js"
 export default 
 
 [
@@ -83,6 +84,8 @@ export default
 [get_role,"get_role"],
 [edit_roles, "edit_roles"],
 [edit_worker, "edit_worker"],
+
+
 // Task
 [createTask,"createTask"],
 [get_task, "get_task"],
@@ -99,13 +102,15 @@ export default
 
 // 
 [regions, "regions"],
+
+// profoil
 [get_worker_search,"get_worker_search"],
 [edit_section_profil, "edit_section_profil"],
 [get_section_profil, "get_section_profil"],
 [UpdateProfilAdmin, "UpdateProfilAdmin"],
 [signOutAdmin, "signOutAdmin"],
 [get_login_history, "get_login_history"],
-
+[changepassword, "changepassword"],
 
 
 // apeals

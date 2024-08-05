@@ -1,5 +1,4 @@
 import Joi from "joi";
-// import req_checker from "./add_product.js"
 import { Router } from "express";
 import file_Upload from "../../../Functions/upload.js"
 import { token_check } from "../../../Functions/jwt.js";
