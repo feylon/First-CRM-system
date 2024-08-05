@@ -105,10 +105,8 @@ app.use("/api", swaggerui.serve, swaggerui.setup(spacs))
 
 const post = process.env.PORT;
 http.createServer(app).listen(
-    process.env.PORT,
-
-    hostname, () => {
-    console.log(`Server  http://${hostname}:${process.env.PORT}`)
+    process.env.PORT, () => {
+    console.log(`Server  :${process.env.PORT}`)
 }
 );
 
